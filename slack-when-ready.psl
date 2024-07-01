@@ -1,0 +1,26 @@
+# Define the default Slack installation directory
+$slackDir = "$env:LOCALAPPDATA\slack"
+
+# Check if the directory exists
+if (Test-Path $slackDir) {
+    # Get the latest version directory
+    $latestVersionDir = Get-ChildItem -Path $slackDir -Directory | Sort-Object Name -Descending | Select-Object -First 1
+
+    if ($latestVersionDir) {
+        # Define the path to the Slack executable
+        $slackExe = Join-Path -Path $latestVersionDir.FullName -ChildPath "slack.exe"
+
+        # Check if the executable exists
+        if (Test-Path $slackExe) {
+            # Run the Slack executable
+            Start-Process pipenv run python -m electron_inject -r slack-when-ready.js - $slackExe
+            Write-Output "Slack is starting..."
+        } else {
+            Write-Output "Slack executable not found."
+        }
+    } else {
+        Write-Output "No version directories found in Slack installation path."
+    }
+} else {
+    Write-Output "Slack installation directory not found."
+}
