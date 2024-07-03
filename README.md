@@ -1,6 +1,9 @@
 # Slack When Ready
 
-Before installing, if you are using Slack dekstop, disable Slack automated startup using the tray bar menu:  ![Screenshot_20240703_112537.png](Screenshot_20240703_112537.png)
+Before installing, if you are using Slack dekstop, disable Slack automated startup using the tray bar menu:
+
+![Screenshot_20240703_112537.png](Screenshot_20240703_112537.png)
+
 Then quit Slack using the same menu.
 
 ## How to install (Using slack web)
@@ -13,15 +16,14 @@ https://chromewebstore.google.com/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmp
 
 Enable developer mode in Chrome as explained here : https://www.tampermonkey.net/faq.php#Q209
 
-Open tampermonkey settings : chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/options.html#nav=settings
+Open tampermonkey settings : [chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/options.html#nav=settings](chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/options.html#nav=settings)
 In the "Security" section, set "Modify existing content security policy (CSP) headers:" to "Remove entirely (possibly insecure)" and click "save" at the bottom of the section.
 
-Open the tampermonkey dashboard : chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/options.html#url=&nav=dashboard
-Click the "+" Icon in the black bar at the top, and paste the contents of the "slack-when-ready.js" file found above in the editor. Click file -> save.
+Open the tampermonkey dashboard : [chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/options.html#url=&nav=dashboard](chrome-extension://dhdgffkkebhmkfjojejmpbldmpobfkfo/options.html#url=&nav=dashboard)
+Click the "+" Icon in the black bar at the top, and paste the contents of the "slack-when-ready.js" file found in the github file list above in the editor. Click file -> save.
 
 Open the Hozana Slack workspace in chrome : https://app.slack.com/client/T4K86RQS2
 Login to Slack if necessary. If Slack redirects you to the app, enter the above URL again in Chrome now that you are logged in.
-Click on the tampermonkey icon 
 
 In the three vertical dots menu (in the upper right corner in Chrome), choose "Save and share" then "Install page as app"
 This will create a Slack icon in the windows menu and in the taskbar. You can name it "Slack Web App" to distinguish it from Slack Desktop.
