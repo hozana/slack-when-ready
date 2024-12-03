@@ -51,7 +51,6 @@
         focusButton.addEventListener('click', focusMode);
         readyButton.addEventListener('click', inboxMode);
 
-        injectNotificationDotsCSS();
         const observer = new MutationObserver(() => {
             if (currentMode === 'inbox') { return; }
             let searchWorkspace = document.querySelector('div.p-client_workspace[aria-label="Recherche"]');
