@@ -105,11 +105,11 @@ class ElectronRemoteDebugger(object):
     def execute(cls, path, port=None):
         if port is None:
             sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            sock.bind(('', 50453))
+            sock.bind(('', 0))
             port = sock.getsockname()[1]
             sock.close()
 
-        cmd = "%s %s" % (path, "--remote-debugging-port=%d" % port)
+        cmd = "%s %s" % (path, "--remote-allow-origins=http://localhost:%d --remote-debugging-port=%d" % (port, port))
         print (cmd)
         p = subprocess.Popen(cmd, shell=True)
         time.sleep(0.5)

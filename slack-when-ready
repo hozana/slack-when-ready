@@ -1,0 +1,62 @@
+#!/usr/bin/env python3
+
+import subprocess
+import tkinter as tk
+from tkinter import messagebox
+
+def show_error_dialog(title, message):
+    root = tk.Tk()
+    root.withdraw()  # Hide the main window
+    messagebox.showerror(title, message)
+    root.destroy()
+
+
+import os
+import platform
+import shutil
+
+def find_slack_executable():
+    system = platform.system()
+
+    if system == "Windows":
+        possible_paths = [
+            os.path.expandvars(r"%LOCALAPPDATA%\slack\slack.exe"),
+            os.path.expandvars(r"%PROGRAMFILES%\slack\slack.exe"),
+            os.path.expandvars(r"%PROGRAMFILES(X86)%\slack\slack.exe")
+        ]
+        for path in possible_paths:
+            if os.path.isfile(path):
+                return path
+
+    elif system == "Darwin":  # macOS
+        slack_path = shutil.which("Slack")
+        if slack_path:
+            return slack_path
+        default_path = "/Applications/Slack.app/Contents/MacOS/Slack"
+        if os.path.isfile(default_path):
+            return default_path
+
+    elif system == "Linux":
+        slack_path = shutil.which("slack")
+        if slack_path:
+            return slack_path
+
+        possible_paths = [
+            "/usr/bin/slack",
+            "/usr/local/bin/slack",
+            "/snap/bin/slack"
+        ]
+        for path in possible_paths:
+            if os.path.isfile(path):
+                return path
+
+    return None
+
+slack_path = find_slack_executable()
+
+if slack_path:
+    print(f"Slack executable found at: {slack_path}")
+    subprocess.run(["python3", "-m", "electron_inject", "-r", "./slack-when-ready.js", "-t", "10", "-", "slack"], stdout=None, stderr=None, check=True)
+else:
+    show_error_dialog("Error", "Slack executable not found.")
+
