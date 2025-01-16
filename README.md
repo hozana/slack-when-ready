@@ -22,4 +22,4 @@ To make slack-when-ready.exe run automatically when the system starts :
 
 ## Linux / OS X :
 
-Clone this repository and run slac
+Clone this repository and run ./slack-when-ready in the root directory.
