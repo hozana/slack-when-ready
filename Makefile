@@ -16,7 +16,7 @@ install-deps:
 
 
 build:
-	$(PYINSTALLER) --add-data slack-when-ready.js:. --icon=slack.ico --onefile $(ENTRY_SCRIPT)
+	$(PYINSTALLER) --add-data slack-when-ready.js:. --noconsole --icon=slack.ico --onefile $(ENTRY_SCRIPT)
 #	$(PYINSTALLER) --add-data slack-when-ready.js:. --onefile $(ENTRY_SCRIPT)
 
 clean:

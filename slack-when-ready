@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 
+import runpy
 import subprocess
+import sys
 import tkinter as tk
 from tkinter import messagebox
+
 
 def show_error_dialog(title, message):
     root = tk.Tk()
@@ -56,7 +59,8 @@ slack_path = find_slack_executable()
 
 if slack_path:
     print(f"Slack executable found at: {slack_path}")
-    subprocess.run(["python3", "-m", "electron_inject", "-r", "./slack-when-ready.js", "-t", "10", "-", "slack"], stdout=None, stderr=None, check=True)
+    sys.argv = ["electron_inject", "-r", "./slack-when-ready.js", "-t", "10", "-", "slack"]
+    runpy.run_module("electron_inject", run_name="__main__", alter_sys=True)
 else:
     show_error_dialog("Error", "Slack executable not found.")
 
