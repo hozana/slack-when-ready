@@ -3,7 +3,7 @@ console.error("SLACK WHEN READY INJECTING");
 let readyButton;
 let focusButton;
 let currentMode;
-console.error("SLACK WHEN READY INJECTING 2");
+
 function init() {
   console.error("SLACK WHEN READY INIT");
   readyButton = document.createElement('button');
@@ -25,10 +25,10 @@ function init() {
   focusButton.textContent = "Focus mode";
   focusButton.id = 'focusButton';
   focusButton.style.position = 'fixed';
-  focusButton.style.top = '4px';
-  focusButton.style.right = '70px';
+  focusButton.style.top = '6px';
+  focusButton.style.left = '70px';
   focusButton.style.zIndex = '1000';
-  focusButton.style.padding = '10px 20px';
+  focusButton.style.padding = '5px 20px';
   focusButton.style.backgroundColor = '#007a5a';
   focusButton.style.color = 'white';
   focusButton.style.border = 'none';
@@ -53,21 +53,18 @@ function init() {
   focusMode();
   console.error("SLACK WHEN READY INIT DONE");
 }
-console.error("SLACK WHEN READY INJECTING 3");
 
 function focusMode() {
   currentMode = 'focus';
   document.body.classList.add('focusMode');
   document.body.classList.remove('inboxMode');
 }
-console.error("SLACK WHEN READY INJECTING 4");
 
 function inboxMode() {
   currentMode = 'inbox';
   document.body.classList.remove('focusMode');
   document.body.classList.add('inboxMode');
 }
-console.error("SLACK WHEN READY INJECTING 5");
 
 function injectCSS() {
     const style = document.createElement('style');
@@ -76,6 +73,7 @@ function injectCSS() {
         body.focusMode
         :is(#focusButton,
             .c-mention_badge,
+	    button#activity,
             div.p-client_workspace[aria-label="Accueil"],
             .p-ia__sidebar_list__badge--unread) {
           display: none !important;
@@ -89,9 +87,9 @@ function injectCSS() {
     `;
     document.head.appendChild(style);
 }
-console.error("SLACK WHEN READY INJECTING 6");
 
 window.addEventListener('load', init);
+
 console.error("SLACK WHEN READY INJECTING DONE");
-console.error("SLACK WHEN READY INJECTING DONE2");
-console.error("SLACK WHEN READY INJECTING DONE3");
+
+// END OF FILE (DON'T REMOVE THIS LINE OR THE BLANK LINES ABOVE, electron-inject seems to skip the end of the file ?)
