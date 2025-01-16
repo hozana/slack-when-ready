@@ -1,6 +1,6 @@
 # Slack When Ready
 
-Before installing, if you are using Slack dekstop, disable Slack automated startup using the tray bar menu:
+Before installing, disable Slack automated startup using the tray bar menu:
 
 ![Screenshot_20240703_112537.png](Screenshot_20240703_112537.png)
 
