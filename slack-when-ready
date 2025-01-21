@@ -18,18 +18,20 @@ import os
 import platform
 import shutil
 
-def find_slack_executable():
-    system = platform.system()
+system = platform.system()
 
+def find_slack_executable():
     if system == "Windows":
-        possible_paths = [
-            os.path.expandvars(r"%LOCALAPPDATA%\slack\slack.exe"),
-            os.path.expandvars(r"%PROGRAMFILES%\slack\slack.exe"),
-            os.path.expandvars(r"%PROGRAMFILES(X86)%\slack\slack.exe")
+        possible_folders = [
+            os.path.expandvars(r"%LOCALAPPDATA%\slack"),
+            os.path.expandvars(r"%PROGRAMFILES%\slack"),
+            os.path.expandvars(r"%PROGRAMFILES(X86)%\slack")
         ]
-        for path in possible_paths:
-            if os.path.isfile(path):
-                return path
+        for folder in possible_folders:
+            if os.path.isdir(folder):
+                for f in reversed(sorted(os.listdir(folder))):
+                    if f.startswith("app-"):
+                        return [folder, os.path.join(folder, f, "slack.exe")]
 
     elif system == "Darwin":  # macOS
         slack_path = shutil.which("Slack")
@@ -57,10 +59,26 @@ def find_slack_executable():
 
 slack_path = find_slack_executable()
 
+if getattr(sys, 'frozen', False):
+    # If running as a PyInstaller bundle
+    base_path = sys._MEIPASS
+else:
+    # If running in a normal Python environment
+    base_path = os.path.dirname(__file__)
+
 if slack_path:
-    print(f"Slack executable found at: {slack_path}")
-    sys.argv = ["electron_inject", "-r", "./slack-when-ready.js", "-t", "10", "-", "slack"]
-    runpy.run_module("electron_inject", run_name="__main__", alter_sys=True)
+    try:
+        if system == "Windows":
+            print(f"Slack executable found at: {slack_path[1]}")
+            sys.argv = ["electron_inject", "-r", os.path.join(base_path, 'slack-when-ready.js'), "-t", "120", "-",
+                        os.join(slack_path[0], "Update.exe"), "--processStart", slack_path[1]]
+        else:
+            print(f"Slack executable found at: {slack_path}")
+            sys.argv = ["electron_inject", "-r", os.path.join(base_path, 'slack-when-ready.js'), "-t", "120", "-", slack_path]
+        runpy.run_module("electron_inject", run_name="__main__", alter_sys=True)
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        input("Press Enter to exit...")
 else:
     show_error_dialog("Error", "Slack executable not found.")
 

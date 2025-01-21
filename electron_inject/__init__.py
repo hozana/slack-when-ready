@@ -4,11 +4,12 @@
 
 import requests
 import time
-import websocket
+from websocket import create_connection
 import json
 import socket
 import subprocess
 import os
+import re
 import sys
 import logging
 
@@ -32,7 +33,7 @@ class LazyWebsocket(object):
 
     def _connect(self):
         if not self.ws:
-            self.ws = websocket.create_connection(self.url)
+            self.ws = create_connection(self.url)
         return self.ws
 
     def send(self, *args, **kwargs):
@@ -109,7 +110,8 @@ class ElectronRemoteDebugger(object):
             port = sock.getsockname()[1]
             sock.close()
 
-        cmd = "%s %s" % (path, "--remote-allow-origins=http://localhost:%d --remote-debugging-port=%d" % (port, port))
+        #cmd = "%s %s" % (path, "--remote-allow-origins=http://localhost:%d --remote-debugging-port=%d" % (port, port))
+        cmd = "%s %s" % (path, "--remote-allow-origins=* --remote-debugging-port=%d" % port)
         print (cmd)
         p = subprocess.Popen(cmd, shell=True)
         time.sleep(0.5)
