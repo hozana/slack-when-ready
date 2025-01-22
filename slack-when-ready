@@ -71,7 +71,7 @@ if slack_path:
         if system == "Windows":
             print(f"Slack executable found at: {slack_path[1]}")
             sys.argv = ["electron_inject", "-r", os.path.join(base_path, 'slack-when-ready.js'), "-t", "120", "-",
-                        os.join(slack_path[0], "Update.exe"), "--processStart", slack_path[1]]
+                        os.path.join(slack_path[0], "Update.exe"), "--processStart", slack_path[1], "--process-start-args"]
         else:
             print(f"Slack executable found at: {slack_path}")
             sys.argv = ["electron_inject", "-r", os.path.join(base_path, 'slack-when-ready.js'), "-t", "120", "-", slack_path]

@@ -22,13 +22,13 @@ function init() {
   document.body.appendChild(readyButton);
   
   focusButton = document.createElement('button');
-  focusButton.textContent = "Focus mode";
+  focusButton.textContent = "F";
   focusButton.id = 'focusButton';
   focusButton.style.position = 'fixed';
-  focusButton.style.top = '6px';
-  focusButton.style.left = '70px';
+  focusButton.style.bottom = '127px';
+  focusButton.style.left = '16px';
   focusButton.style.zIndex = '1000';
-  focusButton.style.padding = '5px 20px';
+  focusButton.style.padding = '10px 15px';
   focusButton.style.backgroundColor = '#007a5a';
   focusButton.style.color = 'white';
   focusButton.style.border = 'none';

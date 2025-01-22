@@ -19,7 +19,7 @@ install-deps:
 
 
 build:
-	$(PYINSTALLER) --add-data slack-when-ready.js:. --add-data electron_inject/__main__.py:electron_inject --log-level=DEBUG --debug=all --hidden-import websocket --hidden-import requests --hidden-import electron_inject --icon=slack.ico --onefile $(ENTRY_SCRIPT)
+	$(PYINSTALLER) --add-data slack-when-ready.js:. --add-data electron_inject/__main__.py:electron_inject --log-level=DEBUG --debug=all --hidden-import websocket --hidden-import requests --hidden-import electron_inject --icon=slack.ico --noconsole --onefile $(ENTRY_SCRIPT)
 #	$(PYINSTALLER) --add-data slack-when-ready.js:. --onefile $(ENTRY_SCRIPT)
 
 clean:
